@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home');
-});
+Route::get('/', [
+    'as' => 'home',
+    'uses' => 'HomeController@index',
+]);
 
 Route::post('/order', [
     'as' => 'acquiring.order',

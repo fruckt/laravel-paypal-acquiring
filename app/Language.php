@@ -10,10 +10,7 @@ class Language extends Model
     {
         return [
             'ru',
-//            'ua',
             'en',
-//            'pl',
-//            'kz',
         ];
     }
 

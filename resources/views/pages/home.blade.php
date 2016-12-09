@@ -2,7 +2,6 @@
 
 @section('body')
 <?php
-    $languages = \App\Language::getArray();
     $crypted_languages = json_encode($languages);
     $current_language = Cookie::get('language');
     $current_language = $current_language ? $current_language : Config::get('app.locale');
@@ -33,7 +32,7 @@
                     'role' => 'form')) !!}
                         <div class="selectw">
                            <label class="selectlabel" for="currency">@lang('acquiring.currency'):</label>
-                            {!! Form::select('currency', ['1'=>'UAH'], null, ['class' => 'dropdown',  'onchange' => 'showselect2()']) !!}
+                            {!! Form::select('currency', ['1'=>'UAH'], null, ['class' => 'dropdown',  'onchange' => 'showselect()']) !!}
                             {!! Form::hidden('currency_name', '') !!}
                             <label class="selectlabel" for="face_value">@lang('acquiring.face_value'):</label>
                             {!! Form::select('face_value', ['1000'=>1000], null, ['class' => 'dropdown', 'onchange' => 'showdesr()']) !!}
@@ -64,15 +63,12 @@
 @section('scripts')
 <script>
 
-    var globalJson = '';
-    var faceValues;
+    var faceValues = [];
+    var globalJson = JSON.parse('{!! $json !!}');
 
     // design
 //------------------------------------------------------------------------------------------
-    
-
-
-    function showselect2()
+    function showselect()
     {
         onCurrencyChange();
 
@@ -120,7 +116,7 @@
         var currency_id = '{{ Input::old('currency') }}';
         currency_id = isNaN(parseInt(currency_id)) ? 0 : parseInt(currency_id);
 
-        var select = '<select name="currency" class="dropdown" onchange="showselect2()" required>';
+        var select = '<select name="currency" class="dropdown" onchange="showselect()" required>';
         select += '<option value="">{{ trans('acquiring.currency') }}</option>';
         for(var i in currencies){
             select += '<option value="'+i+'"'+(i == currency_id ? 'selected' : '')+'>'+currencies[i]+'</option>';
@@ -147,14 +143,14 @@
         }
     }
 
-    function setFaceValues(faceValues)
+    function setFaceValues(values)
     {
         var face_id = '{{ Input::old('face_value') }}';
         face_id = isNaN(parseInt(face_id)) ? 0 : parseInt(face_id);
 
         var select = '<select name="face_value" class="dropdown" onchange="showdesr()" required>';
         select += '<option value="">{{ trans('acquiring.face_value') }}</option>';
-        for(var i in faceValues){
+        for(var i in values){
             select += '<option value="'+i+'"'+(i == face_id ? 'selected' : '')+'>'+i+'</option>';
         }
         select += '</select>';
@@ -178,7 +174,8 @@
     function setPrice()
     {
         var value = $('select[name=face_value]').val();
-        $('input[name=price]').val(faceValues[value]);
+        if (typeof faceValues != 'undefined')
+            $('input[name=price]').val(faceValues[value]);
     }
 
     function onCurrencyChange()
@@ -191,17 +188,7 @@
 
     $( document ).ready(function()
     {
-        $.ajax({
-            url: '{!! env('CERTIFICATE_SITE') !!}/api/faceValues',
-            xhrFields: {withCredentials: true},
-            method: "GET",
-            dataType: "json",
-            success: function (json) {
-                globalJson = json;
-                currencies = json['currencies'];
-                setCurrency(currencies);
-            }
-        });
+        setCurrency(globalJson['currencies']);
 
         var languages = JSON.parse('{!! $crypted_languages !!}');
         $('.lang a').on('click', function(){
