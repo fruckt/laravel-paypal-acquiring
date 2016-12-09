@@ -21,6 +21,7 @@ return [
     "msg8" => "Payment error",
     "msg9" => "Error code:",
     "msg10" => "Order №",
+    "canceled" => "Payment canceled",
     "placeholder" => [
         "phone" => "Phone number in format 380...",
         "email" => "Email Address",

@@ -26,9 +26,14 @@ Route::get('/payment', [
     'uses' => 'AcquiringController@getPayment'
 ]);
 
-Route::post('/answer', [
-    'as' => 'acquiring.answer',
-    'uses' => 'AcquiringController@postAnswer'
+Route::post('/payment', [
+    'as' => 'acquiring.gateway',
+    'uses' => 'AcquiringController@postPayment'
+]);
+
+Route::get('/execute', [
+    'as' => 'acquiring.execute',
+    'uses' => 'AcquiringController@getExecute'
 ]);
 
 Route::get('/status', [

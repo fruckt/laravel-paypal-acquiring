@@ -7,57 +7,57 @@
     $current_language = $current_language ? $current_language : Config::get('app.locale');
 ?>
     <span class='lines'></span>
-        <span class='lines'></span>
-        <span class='lines'></span>
-        <span class='lines'></span>
-        <div class="sert"> 
-            <h1>@lang('acquiring.cert')</h1>
-            <h1>@lang('acquiring.site')</h1>
-            <p><span>@lang('acquiring.face_value')</span><span id="sum"><span>-</span> <span>-</span></span></p>
-            <p><span>@lang('acquiring.price2')</span><span id="price"><span>-</span> UAH</span></p>
-        </div>
-        <div class="center">
-            <div class="title">
-                <h1>@lang('acquiring.title')</h1>
-                <div class="lang">
-                    @foreach($languages as $language)
-                        <a value="{{ $language['label'] }}" class="{{ $language['label'] == $current_language ? 'active' : '' }}">{{ $language['displayed'] }}</a>
-                    @endforeach
-                </div>
+    <span class='lines'></span>
+    <span class='lines'></span>
+    <span class='lines'></span>
+    <div class="sert">
+        <h1>@lang('acquiring.cert')</h1>
+        <h1>@lang('acquiring.site')</h1>
+        <p><span>@lang('acquiring.face_value')</span><span id="sum"><span>-</span> <span>-</span></span></p>
+        <p><span>@lang('acquiring.price2')</span><span id="price"><span>-</span> UAH</span></p>
+    </div>
+    <div class="center">
+        <div class="title">
+            <h1>@lang('acquiring.title')</h1>
+            <div class="lang">
+                @foreach($languages as $language)
+                    <a value="{{ $language['label'] }}" class="{{ $language['label'] == $current_language ? 'active' : '' }}">{{ $language['displayed'] }}</a>
+                @endforeach
             </div>
-
-                {!! Form::open(array('action' => 'AcquiringController@postOrder',
-                    'method' => 'post',
-                    'class' => '',
-                    'role' => 'form')) !!}
-                        <div class="selectw">
-                           <label class="selectlabel" for="currency">@lang('acquiring.currency'):</label>
-                            {!! Form::select('currency', ['1'=>'UAH'], null, ['class' => 'dropdown',  'onchange' => 'showselect()']) !!}
-                            {!! Form::hidden('currency_name', '') !!}
-                            <label class="selectlabel" for="face_value">@lang('acquiring.face_value'):</label>
-                            {!! Form::select('face_value', ['1000'=>1000], null, ['class' => 'dropdown', 'onchange' => 'showdesr()']) !!}
-                            <p class="selecterror col-md-12 col-xs-12 help-block">{!! $errors->first('currency') !!}</p>
-                            <p class="selecterror col-md-12 col-xs-12 help-block">{!! $errors->first('face_value') !!}</p>                     
-                        </div>
-                        {!! Form::text('price', null, ['class' => 'form-control hidden', 'readonly', 'id' => 'priceinput']) !!}
-                        {{--<p class="col-md-12 col-xs-12 help-block">{!! $errors->first('price') !!}</p>--}}
-                        <p class="descr">@lang('acquiring.msg1') <span></span></p>
-                        <div>
-                            <label class="strange transform" for="phone">@lang('acquiring.phone'):</label>
-                            {!! Form::text('phone', '', ['class' => 'form-control transform', 'placeholder' => trans('acquiring.placeholder.phone'), 'required']) !!}
-                            <p class="col-md-12 col-xs-12 help-block">{!! $errors->first('phone') !!}</p>
-                        </div>
-                        <div> 
-                        <label class="strange transform" for="email">@lang('acquiring.email'):</label>
-                        {!! Form::email('email', '', ['class' => 'form-control transform', 'placeholder' => trans('acquiring.placeholder.email'), 'required']) !!}
-                        <p class="col-md-12 col-xs-12 help-block">{!! $errors->first('email') !!}</p>
-                        </div>
-                    
-                        {!! Form::submit(trans('acquiring.button.order'), ['id' => 'send']) !!}
-                    
-                {!! Form::close() !!}
-           </div>
         </div>
+
+            {!! Form::open(array('action' => 'AcquiringController@postOrder',
+                'method' => 'post',
+                'class' => '',
+                'role' => 'form')) !!}
+                    <div class="selectw">
+                       <label class="selectlabel" for="currency">@lang('acquiring.currency'):</label>
+                        {!! Form::select('currency', ['1'=>'UAH'], null, ['class' => 'dropdown',  'onchange' => 'showselect()']) !!}
+                        {!! Form::hidden('currency_name', '') !!}
+                        <label class="selectlabel" for="face_value">@lang('acquiring.face_value'):</label>
+                        {!! Form::select('face_value', ['1000'=>1000], null, ['class' => 'dropdown', 'onchange' => 'showdesr()']) !!}
+                        <p class="selecterror col-md-12 col-xs-12 help-block">{!! $errors->first('currency') !!}</p>
+                        <p class="selecterror col-md-12 col-xs-12 help-block">{!! $errors->first('face_value') !!}</p>
+                    </div>
+                    {!! Form::text('price', null, ['class' => 'form-control hidden', 'readonly', 'id' => 'priceinput']) !!}
+                    {{--<p class="col-md-12 col-xs-12 help-block">{!! $errors->first('price') !!}</p>--}}
+                    <p class="descr">@lang('acquiring.msg1') <span></span></p>
+                    <div>
+                        <label class="strange transform" for="phone">@lang('acquiring.phone'):</label>
+                        {!! Form::text('phone', '', ['class' => 'form-control transform', 'placeholder' => trans('acquiring.placeholder.phone'), 'required']) !!}
+                        <p class="col-md-12 col-xs-12 help-block">{!! $errors->first('phone') !!}</p>
+                    </div>
+                    <div>
+                    <label class="strange transform" for="email">@lang('acquiring.email'):</label>
+                    {!! Form::email('email', '', ['class' => 'form-control transform', 'placeholder' => trans('acquiring.placeholder.email'), 'required']) !!}
+                    <p class="col-md-12 col-xs-12 help-block">{!! $errors->first('email') !!}</p>
+                    </div>
+
+                    {!! Form::submit(trans('acquiring.button.order'), ['id' => 'send']) !!}
+
+            {!! Form::close() !!}
+       </div>
+    </div>
 @stop
 
 @section('scripts')

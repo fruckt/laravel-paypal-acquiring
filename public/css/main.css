@@ -266,6 +266,15 @@ p  {
 	text-transform: uppercase;
 }
 
+*|*:link {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+}
+
+*|*:visited {
+    color: rgba(255,255,255,0.7);
+}
+
 .container .title h1:before {
   width: 5%;
   height: 1px;
