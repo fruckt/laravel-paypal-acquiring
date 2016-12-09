@@ -1,0 +1,10 @@
+/.idea
+/vendor
+/node_modules
+Homestead.yaml
+Homestead.json
+.env
+/.htaccess
+/.htpasswd
+/ArchZIP.bat
+/FILES.lst
