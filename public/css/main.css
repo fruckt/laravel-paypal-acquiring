@@ -571,6 +571,8 @@ line-height: 2.3;
   margin: 0%;
   list-style: none;
   overflow: hidden;
+  background: #6B6746;
+  opacity: 0.8;
 }
 
 .dropdown.scrollable.open ul{
